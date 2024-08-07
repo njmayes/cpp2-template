@@ -1,4 +1,4 @@
-workspace "cpp-template"
+workspace "cpp2-template"
 
     configurations 
     { 
@@ -21,10 +21,20 @@ workspace "cpp-template"
 
  	filter "configurations:ARM64"
 		architecture "ARM64"
+		
+	
+cppfrontBinary = "%{wks.location}bin/cppfront/cppfront.exe"
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
+IncludeDir["cppfront"] 	= "%{wks.location}/dependencies/cppfront/include"
 IncludeDir["TemplateProject"] 	= "%{wks.location}/TemplateProject/src"
+
+group "cppfront"
+
+include "dependencies/cppfront"
+
+group ""
 
 include "TemplateProject"

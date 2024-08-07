@@ -4,14 +4,11 @@ project "TemplateProject"
 		
     targetdir 	("%{wks.location}/bin/%{prj.name}/" .. outputDir)
     objdir 		("%{wks.location}/obj/%{prj.name}/" .. outputDir)
-	
-	pchheader "pch.h"
-	pchsource "src/pch.cpp"
 
     files 
     { 
-        "src/**.h", 
-        "src/**.cpp",
+        "src/**.h2",
+        "src/**.cpp2",
     }
 	
 	defines
@@ -21,12 +18,15 @@ project "TemplateProject"
 
     includedirs
     {
+        "%{IncludeDir.cppfront}",
         "%{IncludeDir.TemplateProject}",
     }
 
 	links
 	{
 	}
+
+    buildstlmodules "On"
 	
     filter "system:windows"
         kind "ProjectTypeWin"
@@ -45,3 +45,25 @@ project "TemplateProject"
     filter "configurations:Release"
 		runtime "Release"
         optimize "on"
+		
+	filter "files:**.h2"
+        buildmessage 'Compiling %{file.relpath}'
+		
+		buildcommands {
+			'%{cppfrontBinary} "%{file.abspath}" -p -cwd "%{prj.location}src_cpp2"'
+		}
+		
+		buildoutputs { "%{file.reldirectory}/../src_cpp2/%{file.basename}.h" }
+		
+		compilebuildoutputs 'on'
+		
+	filter "files:**.cpp2"
+        buildmessage 'Compiling %[%{file.relpath}]'
+		
+		buildcommands {
+			'%{cppfrontBinary} "%{file.abspath}" -p -cwd "%{prj.location}src_cpp2"'
+		}
+		
+		buildoutputs { "%{file.reldirectory}/../src_cpp2/%{file.basename}.cpp" }
+		
+		compilebuildoutputs 'on'

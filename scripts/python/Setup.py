@@ -7,6 +7,7 @@ from PremakeSetup import PremakeConfiguration as PremakeRequirements
 from ProjectSetup import ProjectConfiguration as ProjectConfig
 
 os.chdir(f"{sys.path[0]}/../..") # Change working dir to repo root
+
 projectConfigured = ProjectConfig.CheckProjectConfig()
 premakeInstalled = PremakeRequirements.Validate()
 
