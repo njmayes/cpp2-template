@@ -23,7 +23,7 @@ workspace "cpp2-template"
 		architecture "ARM64"
 		
 	
-cppfrontBinary = "%{wks.location}bin/cppfront/cppfront.exe"
+cppfrontBinary = "%{wks.location}bin/cppfront/cppfront"
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 

@@ -1,4 +1,3 @@
 main: () = {
-	std::print("Hello, world!\n");
-	std::print("Hello, world x2!\n");
+	std::cout << "Hello World!\n";
 }

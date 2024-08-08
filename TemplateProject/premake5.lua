@@ -42,6 +42,7 @@ project "TemplateProject"
     filter "configurations:Debug"
 		runtime "Debug"
         symbols "on"
+
     filter "configurations:Release"
 		runtime "Release"
         optimize "on"
@@ -50,20 +51,22 @@ project "TemplateProject"
         buildmessage 'Compiling %{file.relpath}'
 		
 		buildcommands {
-			'%{cppfrontBinary} "%{file.abspath}" -p -cwd "%{prj.location}src_cpp2"'
+			'{MKDIR} "%{prj.location}cppfront/%{file.reldirectory}"',
+			'%{cppfrontBinary} %{!file.abspath} %{!prj.location}cppfront/%{file.reldirectory}',
 		}
 		
-		buildoutputs { "%{file.reldirectory}/../src_cpp2/%{file.basename}.h" }
+		buildoutputs { "%{prj.location}/cppfront/%{file.reldirectory}/%{file.basename}.h" }
 		
 		compilebuildoutputs 'on'
 		
 	filter "files:**.cpp2"
-        buildmessage 'Compiling %[%{file.relpath}]'
+        buildmessage 'Compiling %{file.relpath}'
 		
 		buildcommands {
-			'%{cppfrontBinary} "%{file.abspath}" -p -cwd "%{prj.location}src_cpp2"'
+			'{MKDIR} "%{prj.location}cppfront/%{file.reldirectory}"',
+			'%{cppfrontBinary} %{!file.abspath} -p -cwd %{!prj.location}cppfront/%{file.reldirectory}',
 		}
 		
-		buildoutputs { "%{file.reldirectory}/../src_cpp2/%{file.basename}.cpp" }
+		buildoutputs { "%{prj.location}/cppfront/%{file.reldirectory}/%{file.basename}.cpp" }
 		
 		compilebuildoutputs 'on'
