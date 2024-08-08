@@ -7,7 +7,7 @@ from pathlib import Path
 def ReplaceNamespace(namespace):
     with open('premake5.lua', 'r') as premakeRoot:
         filedata = premakeRoot.read()
-    filedata = filedata.replace('cpp-template', namespace)
+    filedata = filedata.replace('cpp2-template', namespace)
     with open('premake5.lua', 'w') as premakeRoot:
         premakeRoot.write(filedata)
 
