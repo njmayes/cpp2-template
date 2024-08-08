@@ -2,7 +2,6 @@ import sys
 import os
 import platform
 from unicodedata import name
-import requests
 from pathlib import Path
 
 def ReplaceNamespace(namespace):

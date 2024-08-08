@@ -1,7 +1,6 @@
 import sys
 import os
 import platform
-import requests
 import shutil
 import subprocess
 from pathlib import Path
@@ -66,7 +65,6 @@ class PremakeConfiguration:
         print( "Building premake binary from source..." )
         os.chdir( cls.premakeCoreRoot ) # Change working dir to repo root
         subprocess.call( [ cls.premakeBootstrap ] )
-        shutil.copy2( cls.premakeSrcBinary, cls.premakeDestBinary )
 
         return True
 

@@ -1,6 +1,6 @@
 [submodule "dependencies/cppfront"]
 	path = dependencies/cppfront
-	url = git@github.com:amayesingnathan/cppfront.git
+	url = https://github.com/amayesingnathan/cppfront.git
 [submodule "dependencies/premake-core"]
 	path = dependencies/premake-core
-	url = git@github.com:premake/premake-core.git
+	url = https://github.com/premake/premake-core.git

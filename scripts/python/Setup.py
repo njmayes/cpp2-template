@@ -11,6 +11,8 @@ os.chdir(f"{sys.path[0]}/../..") # Change working dir to repo root
 projectConfigured = ProjectConfig.CheckProjectConfig()
 premakeInstalled = PremakeRequirements.Validate()
 
+print("\n---------------------------------------------------------------------------------")
+
 if (not projectConfigured):
     namespace = str(input("Enter the top level name for the repo...\n")).strip()
     ProjectConfig.SetupNamespace(namespace)
