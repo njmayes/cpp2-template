@@ -6,12 +6,15 @@ import platform
 from PremakeSetup import PremakeConfiguration as PremakeRequirements
 from ProjectSetup import ProjectConfiguration as ProjectConfig
 
-os.chdir(f"{sys.path[0]}/../..") # Change working dir to repo root
+workingRoot = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+print(workingRoot)
 
 projectConfigured = ProjectConfig.CheckProjectConfig()
 premakeInstalled = PremakeRequirements.Validate()
 
 print("\n---------------------------------------------------------------------------------")
+
+print(os.getcwd())
 
 if (not projectConfigured):
     namespace = str(input("Enter the top level name for the repo...\n")).strip()
@@ -23,10 +26,14 @@ if (not projectConfigured):
 
 if (premakeInstalled):
     print("\nRunning premake...")
+    genPath = os.path.join(workingRoot, "scripts", "gen-projects")
+    
     if platform.system() == "Windows":
-        subprocess.call([os.path.abspath("./scripts/gen-projects/msvc.bat"), "nopause"])
+        genFile = "msvc.bat"
     elif platform.system() == "Linux":
-        subprocess.call([os.path.abspath("./scripts/gen-projects/gcc.sh"), "nopause"])
+        genFile = "gcc.sh"
+        
+    subprocess.run(os.path.join(genPath, genFile))
 
     print("\nSetup completed!")
 else:

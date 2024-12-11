@@ -19,7 +19,7 @@ project "TemplateProject"
     includedirs
     {
         "%{IncludeDir.cppfront}",
-        "%{IncludeDir.TemplateProject}",
+        "%{IncludeDir[\"TemplateProject\"]}",
     }
 
 	links

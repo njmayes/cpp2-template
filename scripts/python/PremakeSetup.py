@@ -7,8 +7,8 @@ from pathlib import Path
     
 class PremakeConfiguration:
 
-    workingDir = os.getcwd()
-    premakeCoreRoot = f"{workingDir}/../dependencies/premake-core"
+    workingDir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))    
+    premakeCoreRoot = f"{workingDir}/dependencies/premake-core"
 
     if platform.system() == "Windows":
         premakeBootstrap = os.path.abspath(f"{premakeCoreRoot}/Bootstrap.bat")
@@ -23,11 +23,13 @@ class PremakeConfiguration:
     premakeSrcDirectory  = f"{premakeCoreRoot}/bin/release"
     premakeSrcBinary  = f"{premakeSrcDirectory}/premake5{premakeExtension}"
     
-    premakeDestDirectory = f"{workingDir}/../dependencies/premake/bin"
+    premakeDestDirectory = f"{workingDir}/dependencies/premake/bin"
     premakeDestBinary = f"{premakeDestDirectory}/premake5{premakeExtension}"
 
     @classmethod
     def Validate(cls):
+        print(cls.workingDir)
+        
         if (not cls.CheckIfPremakeInstalled()):
             print("Premake is not built.")
             return False
@@ -65,6 +67,7 @@ class PremakeConfiguration:
         print( "Building premake binary from source..." )
         os.chdir( cls.premakeCoreRoot ) # Change working dir to repo root
         subprocess.call( [ cls.premakeBootstrap ] )
+        os.chdir( cls.workingDir )
 
         return True
 
