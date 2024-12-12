@@ -4,7 +4,6 @@ obj/
 
 #VS files
 .vs/
-.vscode/
 **.sln
 **.vcxproj
 **.vcxproj.filters

@@ -49,13 +49,23 @@ def ReplaceProjectType(root, projectType):
 
     projectFilepath = os.path.join(root, 'TemplateProject/premake5.lua')
     with open(projectFilepath, 'r') as premakeProj:
-        filedata = premakeProj.read()
+        projectFiledata = premakeProj.readlines()
         
-    filedata = filedata.replace('ProjectTypeLinux', linuxProjType)
-    filedata = filedata.replace('ProjectTypeWin', winProjType)
+    newProjectFiledata = [line.replace('ProjectTypeLinux', linuxProjType).replace('ProjectTypeWin', winProjType) for line in projectFiledata]
     
     with open(projectFilepath, 'w') as premakeProj:
-        premakeProj.write(filedata)
+        premakeProj.writelines(newProjectFiledata)
+        
+    
+    if projectType == 'l':
+        solutionFilepath = os.path.join(root, 'premake5.lua')
+        with open(solutionFilepath, 'r') as premakeSol:
+            solutionFiledata = premakeSol.readlines()
+
+        solutionFiledata.pop(1)
+
+        with open(solutionFilepath, 'w') as premakeSol:
+            premakeSol.writelines(solutionFiledata)
     
 class ProjectConfiguration:
 

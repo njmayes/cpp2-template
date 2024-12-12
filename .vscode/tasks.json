@@ -1,0 +1,54 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "rebuild solution",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/gen-projects/msvc.bat",
+            "args": [ "nopause" ],
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build (debug)",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/property:GenerateFullPaths=true",
+                "/t:build",
+                "/consoleloggerparameters:NoSummary",
+                "/property:Configuration=Debug",
+                "/property:Platform=x64"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": "rebuild solution",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build (release)",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/property:GenerateFullPaths=true",
+                "/t:build",
+                "/consoleloggerparameters:NoSummary",
+                "/property:Configuration=Release",
+                "/property:Platform=x64"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "dependsOn": "rebuild solution",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
